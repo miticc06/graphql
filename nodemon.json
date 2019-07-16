@@ -1,7 +1,8 @@
 {
-    "env" : {
-        "MONGO_USER" : "miticc06",
-        "MONGO_PASSWORD" : "minhtien123",
-        "MONGO_DB" : "events-react-dev"
-    }
+  "env": {
+    "MONGO_USER": "miticc06",
+    "MONGO_PASSWORD": "minhtien123",
+    "MONGO_DB": "events-react-dev",
+    "SECRECT_KEY": "somesupersecrectkey"
+  }
 }
