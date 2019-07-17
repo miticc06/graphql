@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import "./Auth.css";
+import AuthContext from "../context/auth-context";
 // import { stat } from "fs";
 class AuthPage extends Component {
   state = {
     isLogin: true
   };
+
+  static contextType = AuthContext;
 
   constructor(props) {
     super(props);
@@ -16,7 +19,6 @@ class AuthPage extends Component {
     this.setState(prevState => {
       return { isLogin: !prevState.isLogin };
     });
-    this.state.isLogin = this.state.isLogin;
   };
 
   submitHandler = event => {
@@ -67,7 +69,11 @@ class AuthPage extends Component {
         return res.json();
       })
       .then(resData => {
-        console.log(resData);
+        this.context.login(
+          resData.data.login.token,
+          resData.data.login.userId,
+          resData.data.login.tokenExpiration
+        );
       })
       .catch(err => {
         console.log(err);
