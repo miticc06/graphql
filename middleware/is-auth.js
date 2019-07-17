@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
     }
 
     decodedToken = jwt.verify(token, process.env.SECRECT_KEY);
+    console.log(decodedToken);
     if (!decodedToken) {
       throw new Error("");
     }

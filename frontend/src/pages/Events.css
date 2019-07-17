@@ -6,3 +6,17 @@
   width: 30rem;
   max-width: 80%;
 }
+
+.events__list {
+  /* width: 40rem; */
+  max-width: 90%;
+}
+
+.events__list-item {
+  list-style: none;
+  border: 1px solid #5101d1;
+  padding: 15px;
+  margin: 10px auto;
+
+  width: 100%;
+}

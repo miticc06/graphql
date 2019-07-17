@@ -8,6 +8,7 @@ const user = async userId => {
     return {
       ...user._doc,
       _id: user.id,
+      password: null,
       createdEvents: events.bind(this, user._doc.createdEvents)
     };
   } catch (err) {
