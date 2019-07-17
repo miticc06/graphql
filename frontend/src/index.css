@@ -32,3 +32,21 @@ body {
   background: #410da1;
   border-color: #2f057c;
 }
+
+.btn {
+  background: #641ce5;
+  font: inherit;
+  border: 1px solid #5317c2;
+  padding: 0.25rem 1rem;
+  border-radius: 3px;
+  margin-right: 1rem;
+  color: white;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
+}
+
+.btn:hover,
+.btn:active {
+  background: #410da1;
+  border-color: #2f057c;
+}
