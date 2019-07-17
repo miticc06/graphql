@@ -28,6 +28,18 @@ const mainNavigation = props => (
                   <NavLink to="/booking">Booking</NavLink>
                 </li>
               )}
+              {/* 
+                <li>
+                  <button>dasdasd</button>
+                  <button onClick={context.logout()}>Logout</button>
+                </li> */}
+              {context.token && (
+                <li>
+                  <button onClick={context.logout} className="buttonLogout">
+                    Logout
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </header>

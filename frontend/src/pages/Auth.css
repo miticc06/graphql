@@ -3,32 +3,3 @@
   max-width: 80%;
   margin: 5rem auto;
 }
-
-.form-control label,
-.form-control input {
-  width: 100%;
-  display: block;
-}
-.form-control label {
-  margin-bottom: 0.5rem;
-}
-.form-control {
-  margin-bottom: 1rem;
-}
-.form-control button {
-  background: #26e6ff;
-  font: inherit;
-  border: 1px solid #26e6ff;
-  padding: 0.25rem 1rem;
-  border-radius: 3px;
-  margin-right: 1rem;
-  color: white;
-  cursor: pointer;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.26);
-}
-
-.form-control button:hover,
-.form-control button:active {
-  background: #4ec8d8;
-  border-color: #4ec8d8;
-}
