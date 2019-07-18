@@ -48,5 +48,6 @@ mongoose
     app.listen(8000);
   })
   .catch(err => {
-    console.log(err);
+    throw err;
+    //console.log(err);
   });

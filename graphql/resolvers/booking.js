@@ -20,7 +20,7 @@ module.exports = {
       throw new Error("Unauthenticated!");
     }
     try {
-      const bookings = await Booking.find();
+      const bookings = await Booking.find({ user: req.userId });
       return bookings.map(booking => {
         return transformBooking(booking);
       });
@@ -33,7 +33,10 @@ module.exports = {
       throw new Error("Unauthenticated!");
     }
     try {
-      const fetchEvent = await Event.findOne({ _id: args.eventId });
+      const fetchEvent = await Event.findOne({
+        _id: args.eventId,
+        user: req.userId
+      });
       const booking = new Booking({
         event: fetchEvent,
         user: req.userId //"5d2bf5fe01428e051472663e"

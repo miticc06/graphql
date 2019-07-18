@@ -88,8 +88,49 @@ class EventsPage extends Component {
       });
   }
 
-  onConfirmBookEvent = () => {
-    console.log("onConfirmBookEvent");
+  bookEventHandler = () => {
+    const eventId = this.state.selectedEvent._id;
+    console.log("bookEvenHandler " + eventId);
+
+    const requestBody = {
+      query: `
+      mutation { 
+        bookEvent(eventId : "${eventId}") {
+         _id
+         event {
+           title
+         }
+         user {
+           email
+         }
+         createdAt
+         updatedAt
+       }
+     } 
+      `
+    };
+
+    fetch("http://localhost:8000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "xxxx " + this.context.token
+      }
+    })
+      .then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+          throw new Error("failed!");
+        }
+        return res.json();
+      })
+      .then(resData => {
+        console.log(resData.data.bookEvent);
+        this.setState({ selectedEvent: null });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   confirmCreateEventHandler = () => {
@@ -178,7 +219,7 @@ class EventsPage extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.creating && <Backdrop />}
+        {(this.state.creating || this.state.selectedEvent) && <Backdrop />}
         {this.state.creating && (
           <Modal
             title="Add event"
@@ -221,7 +262,7 @@ class EventsPage extends Component {
             onCancel={this.cancelCreateEventHandler}
             canConfirm
             confirmText="Book"
-            onConfirm={this.onConfirmBookEvent}
+            onConfirm={this.bookEventHandler}
           >
             <h1>{this.state.selectedEvent.title}</h1>
             <h2>{this.state.selectedEvent.price}</h2>
