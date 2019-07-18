@@ -3,6 +3,8 @@ import "./Events.css";
 import AuthContext from "../context/auth-context";
 import Modal from "../components/Modal/Modal";
 import Backdrop from "../components/Backdrop/Backdrop";
+import EventList from "../components/Events/EventList/EventList";
+
 class EventsPage extends Component {
   state = {
     creating: false,
@@ -43,7 +45,7 @@ class EventsPage extends Component {
             date
             creator {
               email
-              password
+              _id
             }
           }
         }
@@ -103,6 +105,10 @@ class EventsPage extends Component {
           date: "${date}"
         }) {
           title
+          _id
+          description
+          price
+          date
           creator {
             _id
             email
@@ -130,7 +136,25 @@ class EventsPage extends Component {
       })
       .then(resData => {
         console.log(resData);
-        this.fetchEvents();
+
+        //  const arrEvent = [...resData.data.events];
+        //arrEvent.push()
+        this.setState(prevState => {
+          const arrEvents = [...prevState.events];
+          arrEvents.push({
+            _id: resData.data.createEvent._id,
+            title: resData.data.createEvent.title,
+            description: resData.data.createEvent.description,
+            price: resData.data.createEvent.price,
+            date: resData.data.createEvent.date,
+            creator: {
+              _id: this.context.userId
+            }
+          });
+          return { events: arrEvents };
+        });
+
+        //this.fetchEvents();
       })
       .catch(err => {
         console.log(err);
@@ -138,9 +162,9 @@ class EventsPage extends Component {
   };
 
   render() {
-    const eventsList = this.state.events.map(event => {
-      return <li className="events__list-item">{event.title}</li>;
-    });
+    // const eventsList = this.state.events.map(event => {
+    //   return <li className="events__list-item">{event.title}</li>;
+    // });
 
     return (
       <React.Fragment>
@@ -188,7 +212,7 @@ class EventsPage extends Component {
           </div>
         )}
 
-        <ul className="events__list">{eventsList}</ul>
+        <EventList events={this.state.events} userId={this.context.userId} />
       </React.Fragment>
     );
   }
