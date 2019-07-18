@@ -9,7 +9,8 @@ class EventsPage extends Component {
   state = {
     creating: false,
     isLoading: false,
-    events: []
+    events: [],
+    selectedEvent: null
   };
 
   static contextType = AuthContext;
@@ -31,7 +32,17 @@ class EventsPage extends Component {
   };
 
   cancelCreateEventHandler = () => {
-    this.setState({ creating: false });
+    this.setState({ creating: false, selectedEvent: null });
+  };
+
+  onDetailHandler = eventId => {
+    console.log(eventId);
+    this.setState(prevState => {
+      const selectEvent = prevState.events.filter(
+        event => event._id === eventId
+      );
+      return { selectedEvent: selectEvent[0] || null };
+    });
   };
 
   fetchEvents() {
@@ -76,6 +87,10 @@ class EventsPage extends Component {
         this.setState({ isLoading: false });
       });
   }
+
+  onConfirmBookEvent = () => {
+    console.log("onConfirmBookEvent");
+  };
 
   confirmCreateEventHandler = () => {
     this.setState({ creating: false });
@@ -169,6 +184,7 @@ class EventsPage extends Component {
             title="Add event"
             canCancel
             canConfirm
+            confirmText="Confirm"
             onCancel={this.cancelCreateEventHandler}
             onConfirm={this.confirmCreateEventHandler}
           >
@@ -198,6 +214,21 @@ class EventsPage extends Component {
           </Modal>
         )}
 
+        {this.state.selectedEvent && (
+          <Modal
+            title="View detail"
+            canCancel
+            onCancel={this.cancelCreateEventHandler}
+            canConfirm
+            confirmText="Book"
+            onConfirm={this.onConfirmBookEvent}
+          >
+            <h1>{this.state.selectedEvent.title}</h1>
+            <h2>{this.state.selectedEvent.price}</h2>
+            <p>{this.state.selectedEvent.description}</p>
+          </Modal>
+        )}
+
         {this.context.token && (
           <div className="events-control">
             <p>Share your own Events!</p>
@@ -209,7 +240,11 @@ class EventsPage extends Component {
 
         {this.state.isLoading && <Spinner />}
 
-        <EventList events={this.state.events} userId={this.context.userId} />
+        <EventList
+          events={this.state.events}
+          userId={this.context.userId}
+          onDetail={this.onDetailHandler}
+        />
       </React.Fragment>
     );
   }

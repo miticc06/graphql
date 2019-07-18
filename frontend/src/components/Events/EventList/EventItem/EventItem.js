@@ -15,7 +15,7 @@ const eventItem = props => (
       ) : (
         <button
           className="btn"
-          //   onClick={props.onDetail.bind(this, props.eventId)}
+          onClick={props.onDetail.bind(this, props.eventId)}
         >
           View Details
         </button>
