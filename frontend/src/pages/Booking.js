@@ -11,9 +11,9 @@ class BookingPage extends Component {
 
   static contextType = AuthContext;
 
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
     this.fetchData();

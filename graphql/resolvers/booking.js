@@ -34,14 +34,12 @@ module.exports = {
     }
     try {
       const fetchEvent = await Event.findOne({
-        _id: args.eventId,
-        user: req.userId
+        _id: args.eventId
       });
+
       const booking = new Booking({
         event: fetchEvent,
-        user: req.userId //"5d2bf5fe01428e051472663e"
-        // createdAt: new Date().toISOString(),
-        // updatedAt: new Date().toISOString()
+        user: req.userId
       });
 
       const result = await booking.save();
